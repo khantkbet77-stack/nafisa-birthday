@@ -391,7 +391,7 @@
 
   <!-- Corner Music Toggle Button -->
   <div class="music-toggle-btn" id="musicBtn" onclick="toggleMusic()" title="Music On/Off">
-    🎵
+    🔇
   </div>
 
   <!-- PAGE 1: LOCK SCREEN -->
@@ -515,16 +515,18 @@
     let swiperInstance = null;
     let letterOpened = false;
 
-    // মিউজিক অন/অফ টগল করার ফাংশন
+    // মিউজিক অন/অফ এবং বাটন সিঙ্ক করার নিখুঁত ফাংশন
     function toggleMusic() {
       const audio = document.getElementById('bgMusic');
       const btn = document.getElementById('musicBtn');
+      
       if (audio.paused) {
         audio.play().then(() => {
           btn.classList.add('playing');
           btn.innerHTML = "🔊";
         }).catch(err => {
-          console.log("Play blocked:", err);
+          console.log("Play blocked by browser:", err);
+          alert("ব্রাউজার অডিও ব্লক করে রেখেছে! অনুগ্রহ করে বাটনে আবার ক্লিক করুন।");
         });
       } else {
         audio.pause();
@@ -650,6 +652,15 @@
         zIndex: 9999
       });
     }
+
+    // স্ক্রিনের যেকোনো জায়গায় প্রথম ক্লিক বা টাচ করলে অডিও এনভায়রনমেন্ট সচল হবে
+    document.body.addEventListener('click', function() {
+      const audio = document.getElementById('bgMusic');
+      const btn = document.getElementById('musicBtn');
+      if (audio.paused && btn.innerHTML.trim() === "🔊") {
+        audio.play().catch(e => console.log(e));
+      }
+    }, { once: true });
   </script>
 </body>
 </html>
