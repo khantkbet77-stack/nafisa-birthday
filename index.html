@@ -469,13 +469,27 @@
   <!-- Swiper JS Library -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-  <script>
+<script>
     let currentPin = "";
     const correctPin = "2026";
     let swiperInstance = null;
     let letterOpened = false;
+    let audioStarted = false;
 
-    // Background Hearts
+    const bgMusic = document.getElementById('bgMusic');
+
+    // স্ক্রিনের যেকোনো জায়গায় প্রথম টাচ/ক্লিক করলেই মিউজিক প্লে করার চেষ্টা করবে
+    function startAudio() {
+      if (!audioStarted && bgMusic) {
+        bgMusic.play().then(() => {
+          audioStarted = true;
+        }).catch((err) => {
+          console.log("Audio waiting for user interaction:", err);
+        });
+      }
+    }
+
+    // ব্যাকগ্রাউন্ড হার্ট এনিমেশন
     const heartsContainer = document.getElementById('heartsContainer');
     for(let i=0; i<15; i++) {
       let heart = document.createElement('div');
@@ -487,15 +501,19 @@
       heartsContainer.appendChild(heart);
     }
 
-    document.getElementById('profilePic').onclick = () => document.getElementById('imgModal').classList.remove('hidden');
+    document.getElementById('profilePic').onclick = () => {
+      startAudio();
+      document.getElementById('imgModal').classList.remove('hidden');
+    };
+    
     function closeModal() { document.getElementById('imgModal').classList.add('hidden'); }
 
     function pressNum(num) {
+      startAudio(); // পিন চেপে সংখ্যা দেওয়ার সময় মিউজিক চালু হবে
       if (currentPin.length < 4) { currentPin += num; updateDisplay(); }
       if (currentPin.length === 4) {
         if (currentPin === correctPin) {
-          let audio = document.getElementById('bgMusic');
-          if (audio) audio.play().catch(()=>{});
+          startAudio();
           setTimeout(() => goToPage(2), 300);
         } else {
           alert("Wrong Passkey! Click picture for hint.");
@@ -589,6 +607,8 @@
         zIndex: 9999
       });
     }
+
+    // পেজের যেকোনো জায়গায় প্রথম টাচ করলে অডিও অন করার ইভেন্ট
+    document.addEventListener('touchstart', startAudio, { once: true });
+    document.addEventListener('click', startAudio, { once: true });
   </script>
-</body>
-</html>
