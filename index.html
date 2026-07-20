@@ -363,9 +363,9 @@
     <h2>LOCKED</h2>
     
     <!-- Music Button Connected to Fixed Function -->
-    <button onclick="playAudioDirectly()" style="background: linear-gradient(135deg, #ff4d6d 0%, #ff758f 50%, #ffb3c1 100%); color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 9px 22px; border-radius: 20px; margin: 10px 0; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px rgba(255,77,109,0.6);">
-      🎵 Play Music
-    </button>
+   <button onclick="playAudioDirectly()" type="button" style="background: #ff4d6d; color: white; border: none; padding: 10px 20px; border-radius: 20px; margin: 10px 0; cursor: pointer; font-weight: bold; box-shadow: 0 0 10px rgba(255,77,109,0.5); z-index: 999; position: relative;">
+  🎵 Play Music
+</button>
     
     <p style="font-size: 12px; color: #aaa; margin: 5px 0 15px 0;">Hint — Click picture for passkey</p>
     <div id="pinDisplay" class="pin-display">••••</div>
@@ -488,13 +488,17 @@
     function playAudioDirectly() {
       const audio = document.getElementById('bgMusic');
       if (audio) {
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise.then(_ => {
-            console.log("Audio playing successfully!");
+        audio.muted = false; // নিশ্চিত করার জন্য
+        var promise = audio.play();
+        
+        if (promise !== undefined) {
+          promise.then(_ => {
+            console.log("Playing!");
           }).catch(error => {
-            console.log("Playback failed:", error);
-            alert("গান প্লে হচ্ছে না! আপনার গিটহাবে অডিও ফাইলের নাম হুবহু 'music.mp3' (সব ছোট হাতের) আছে কিনা নিশ্চিত করুন।");
+            console.log("Error:", error);
+            // সরাসরি লিঙ্ক দিয়ে প্লে করার চেষ্টা
+            audio.src = "music.mp3";
+            audio.play();
           });
         }
       }
