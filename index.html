@@ -4,347 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Nafisa</title>
-  <!-- Swiper CSS for 3D Coverflow Slider -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <!-- Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Hind Siliguri', 'Poppins', sans-serif;
-    }
-
-    body {
-      background: #0a0305;
-      background: radial-gradient(circle, #2d0b14 0%, #050103 100%);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Floating Heart Background */
-    .bg-hearts {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none !important;
-      overflow: hidden;
-      z-index: 1;
-    }
-    .heart-particle {
-      position: absolute;
-      color: rgba(255, 77, 109, 0.35);
-      font-size: 22px;
-      animation: floatUp 6s infinite linear;
-      pointer-events: none !important;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-      50% { opacity: 0.8; }
-      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-    }
-
-    /* VIP Card Container */
-    .card {
-      position: relative;
-      z-index: 2;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 77, 109, 0.3);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border-radius: 24px;
-      padding: 30px 20px 20px 20px;
-      width: 90%;
-      max-width: 380px;
-      text-align: center;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 77, 109, 0.2);
-      margin-bottom: 20px;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Poppins', sans-serif; }
+    body { background: #0a0305; background: radial-gradient(circle, #2d0b14 0%, #050103 100%); color: #fff; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow-x: hidden; position: relative; }
+    .bg-hearts { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none !important; overflow: hidden; z-index: 1; }
+    .heart-particle { position: absolute; color: rgba(255, 77, 109, 0.35); font-size: 22px; animation: floatUp 6s infinite linear; pointer-events: none !important; }
+    @keyframes floatUp { 0% { transform: translateY(100vh) scale(0.5); opacity: 0; } 50% { opacity: 0.8; } 100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
+    .card { position: relative; z-index: 2; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 77, 109, 0.3); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-radius: 24px; padding: 30px 20px 20px 20px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 77, 109, 0.2); margin-bottom: 20px; }
     .hidden { display: none !important; }
-
-    /* Page 1: Lock Screen */
-    .avatar-btn {
-      width: 95px; height: 95px;
-      border-radius: 50%;
-      border: 2px solid #ff4d6d;
-      object-fit: cover;
-      cursor: pointer;
-      margin-bottom: 10px;
-      box-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
-    }
-    .pin-display {
-      letter-spacing: 12px;
-      font-size: 24px;
-      margin: 15px 0;
-      min-height: 35px;
-      color: #ff4d6d;
-    }
-    .keypad {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 15px;
-    }
-    .keypad button {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      padding: 14px;
-      font-size: 18px;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
+    .avatar-btn { width: 95px; height: 95px; border-radius: 50%; border: 2px solid #ff4d6d; object-fit: cover; cursor: pointer; margin-bottom: 10px; box-shadow: 0 0 20px rgba(255, 77, 109, 0.6); }
+    .pin-display { letter-spacing: 12px; font-size: 24px; margin: 15px 0; min-height: 35px; color: #ff4d6d; }
+    .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 15px; }
+    .keypad button { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); color: #fff; padding: 14px; font-size: 18px; border-radius: 14px; cursor: pointer; transition: all 0.2s; }
     .keypad button:active { background: #ff4d6d; transform: scale(0.95); }
-
-    /* Passkey Modal */
-    .modal {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.92);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-    }
+    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
     .modal img { max-width: 85%; max-height: 60vh; border-radius: 20px; border: 2px solid #ff4d6d; }
     .passkey-text { margin-top: 15px; font-size: 18px; color: #ff4d6d; font-weight: bold; }
-
-    /* Page 2: Cute Character */
-    .cute-character {
-      width: 100px; height: 100px; margin: 15px auto; position: relative;
-    }
-    .character-head {
-      width: 80px; height: 75px; background: #fff; border-radius: 50% 50% 45% 45%;
-      position: absolute; top: 15px; left: 10px; animation: bounce 1.8s infinite ease-in-out;
-    }
+    .cute-character { width: 100px; height: 100px; margin: 15px auto; position: relative; }
+    .character-head { width: 80px; height: 75px; background: #fff; border-radius: 50% 50% 45% 45%; position: absolute; top: 15px; left: 10px; animation: bounce 1.8s infinite ease-in-out; }
     .ear { width: 25px; height: 35px; background: #ff4d6d; border-radius: 50% 50% 0 0; position: absolute; top: -15px; }
-    .ear.left { left: 8px; transform: rotate(-15deg); }
-    .ear.right { right: 8px; transform: rotate(15deg); }
+    .ear.left { left: 8px; transform: rotate(-15deg); } .ear.right { right: 8px; transform: rotate(15deg); }
     .eye { width: 10px; height: 10px; background: #2d0b14; border-radius: 50%; position: absolute; top: 30px; }
     .eye.left { left: 20px; } .eye.right { right: 20px; }
     .cheek { width: 14px; height: 8px; background: #ff8fa3; border-radius: 50%; position: absolute; top: 42px; }
     .cheek.left { left: 12px; } .cheek.right { right: 12px; }
     .mouth { width: 12px; height: 8px; border-bottom: 3px solid #2d0b14; border-radius: 0 0 50% 50%; position: absolute; top: 42px; left: 34px; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-    /* Page 3: Age Counter */
-    .profile-holder {
-      width: 95px; height: 95px; margin: 0 auto 12px auto; border-radius: 50%;
-      overflow: hidden; border: 2px solid #ff4d6d; box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
-    }
+    .profile-holder { width: 95px; height: 95px; margin: 0 auto 12px auto; border-radius: 50%; overflow: hidden; border: 2px solid #ff4d6d; box-shadow: 0 0 20px rgba(255, 77, 109, 0.5); }
     .profile-holder img { width: 100%; height: 100%; object-fit: cover; }
     .counter-grid { display: flex; justify-content: space-around; margin: 20px 0; }
     .counter-box h3 { font-size: 28px; color: #ff4d6d; font-family: 'Poppins'; }
     .counter-box p { font-size: 10px; letter-spacing: 2px; color: #aaa; text-transform: uppercase; }
-
-    .btn-main {
-      background: linear-gradient(135deg, #ff4d6d 0%, #ff758f 50%, #ffb3c1 100%);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      color: white; padding: 13px 32px; border-radius: 30px;
-      font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 15px; 
-      box-shadow: 0 0 15px rgba(255, 77, 109, 0.8), 0 5px 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-      position: relative;
-      z-index: 10;
-    }
+    .btn-main { background: linear-gradient(135deg, #ff4d6d 0%, #ff758f 50%, #ffb3c1 100%); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 13px 32px; border-radius: 30px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 15px; box-shadow: 0 0 15px rgba(255, 77, 109, 0.8), 0 5px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; position: relative; z-index: 10; }
     .btn-main:active { transform: scale(0.96); }
-
-    /* PAGE 4: 3D COVERFLOW SLIDER SECTION */
-    .slider-container-page {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: 50;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      padding: 40px 0 30px 0;
-      overflow: hidden;
-    }
-
-    .slider-header {
-      text-align: center;
-      z-index: 10;
-    }
-    .slider-header h2 {
-      font-size: 26px;
-      color: #ff4d6d;
-      text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
-      font-family: 'Poppins', sans-serif;
-    }
-    .slider-header p {
-      font-size: 12px;
-      color: #aaa;
-      margin-top: 3px;
-    }
-
-    /* Swiper Styling */
-    .swiper {
-      width: 100%;
-      padding-top: 20px;
-      padding-bottom: 40px;
-    }
-
-    .swiper-slide {
-      background-position: center;
-      background-size: cover;
-      width: 250px;
-      height: 380px;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1.5px solid rgba(255, 77, 109, 0.5);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 77, 109, 0.3);
-      transition: border-color 0.3s;
-    }
-
-    .swiper-slide-active {
-      border: 2px solid #ff4d6d;
-      box-shadow: 0 20px 40px rgba(255, 77, 109, 0.4);
-    }
-
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* PAGE 5: SMALL ICON FOR MESSAGE */
-    .msg-icon-box {
-      width: 90px;
-      height: 90px;
-      margin: 25px auto;
-      background: rgba(255, 77, 109, 0.15);
-      border: 2px solid #ff4d6d;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 40px;
-      cursor: pointer;
-      box-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
-      animation: pulse 1.8s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 77, 109, 0.4); }
-      50% { transform: scale(1.08); box-shadow: 0 0 35px rgba(255, 77, 109, 0.8); }
-    }
-
-    /* FULL SCREEN POPUP LETTER MODAL */
-    .fullscreen-letter-modal {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(5, 2, 4, 0.93);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 200;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-    }
-
-    .fullscreen-letter-modal.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .letter-sheet {
-      width: 90%;
-      max-width: 420px;
-      max-height: 85vh;
-      background: #ffffff;
-      color: #2d0b14;
-      border-radius: 24px;
-      padding: 30px 22px;
-      box-shadow: 0 15px 50px rgba(255, 77, 109, 0.4);
-      transform: scale(0.3) translateY(100px);
-      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-
-    .fullscreen-letter-modal.active .letter-sheet {
-      transform: scale(1) translateY(0);
-    }
-
-    .letter-header {
-      font-size: 20px;
-      font-weight: 700;
-      color: #c9184a;
-      margin-bottom: 15px;
-      border-bottom: 2px dashed #ff8fa3;
-      padding-bottom: 10px;
-      text-align: center;
-    }
-
-    .letter-content {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #333;
-      text-align: left;
-      flex-grow: 1;
-      margin-bottom: 20px;
-    }
-
-    .wish-signature {
-      margin-top: 15px;
-      padding-top: 15px;
-      border-top: 1px solid #eee;
-      text-align: right;
-    }
-
-    .wished-for {
-      font-size: 13px;
-      color: #666;
-    }
-
-    .sender-name {
-      font-family: 'Dancing Script', cursive, 'Hind Siliguri';
-      font-size: 28px;
-      font-weight: 700;
-      color: #c9184a;
-      display: inline-block;
-      animation: glowText 2s infinite alternate;
-    }
-
-    @keyframes glowText {
-      from { text-shadow: 0 0 2px rgba(201, 24, 74, 0.2); }
-      to { text-shadow: 0 0 12px rgba(201, 24, 74, 0.6); }
-    }
-
-    .close-letter-btn {
-      position: absolute;
-      top: 12px; right: 18px;
-      font-size: 24px;
-      color: #999;
-      cursor: pointer;
-    }
-
-    /* Footer */
-    .footer-text {
-      position: relative; z-index: 10; font-size: 11px;
-      color: rgba(255, 255, 255, 0.5); text-align: center; margin-bottom: 15px;
-    }
+    .slider-container-page { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 50; background: #000; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 40px 0 30px 0; overflow: hidden; }
+    .slider-header { text-align: center; z-index: 10; }
+    .slider-header h2 { font-size: 26px; color: #ff4d6d; text-shadow: 0 0 15px rgba(255, 77, 109, 0.6); font-family: 'Poppins', sans-serif; }
+    .slider-header p { font-size: 12px; color: #aaa; margin-top: 3px; }
+    .swiper { width: 100%; padding-top: 20px; padding-bottom: 40px; }
+    .swiper-slide { background-position: center; background-size: cover; width: 250px; height: 380px; border-radius: 20px; overflow: hidden; border: 1.5px solid rgba(255, 77, 109, 0.5); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 77, 109, 0.3); transition: border-color 0.3s; }
+    .swiper-slide-active { border: 2px solid #ff4d6d; box-shadow: 0 20px 40px rgba(255, 77, 109, 0.4); }
+    .swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .msg-icon-box { width: 90px; height: 90px; margin: 25px auto; background: rgba(255, 77, 109, 0.15); border: 2px solid #ff4d6d; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40px; cursor: pointer; box-shadow: 0 0 25px rgba(255, 77, 109, 0.5); animation: pulse 1.8s infinite ease-in-out; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 77, 109, 0.4); } 50% { transform: scale(1.08); box-shadow: 0 0 35px rgba(255, 77, 109, 0.8); } }
+    .fullscreen-letter-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5, 2, 4, 0.93); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 200; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+    .fullscreen-letter-modal.active { opacity: 1; pointer-events: auto; }
+    .letter-sheet { width: 90%; max-width: 420px; max-height: 85vh; background: #ffffff; color: #2d0b14; border-radius: 24px; padding: 30px 22px; box-shadow: 0 15px 50px rgba(255, 77, 109, 0.4); transform: scale(0.3) translateY(100px); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow-y: auto; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+    .fullscreen-letter-modal.active .letter-sheet { transform: scale(1) translateY(0); }
+    .letter-header { font-size: 20px; font-weight: 700; color: #c9184a; margin-bottom: 15px; border-bottom: 2px dashed #ff8fa3; padding-bottom: 10px; text-align: center; }
+    .letter-content { font-size: 15px; line-height: 1.8; color: #333; text-align: left; flex-grow: 1; margin-bottom: 20px; }
+    .wish-signature { margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; text-align: right; }
+    .wished-for { font-size: 13px; color: #666; }
+    .sender-name { font-family: 'Dancing Script', cursive, 'Hind Siliguri'; font-size: 28px; font-weight: 700; color: #c9184a; display: inline-block; animation: glowText 2s infinite alternate; }
+    @keyframes glowText { from { text-shadow: 0 0 2px rgba(201, 24, 74, 0.2); } to { text-shadow: 0 0 12px rgba(201, 24, 74, 0.6); } }
+    .close-letter-btn { position: absolute; top: 12px; right: 18px; font-size: 24px; color: #999; cursor: pointer; }
+    .footer-text { position: relative; z-index: 10; font-size: 11px; color: rgba(255, 255, 255, 0.5); text-align: center; margin-bottom: 15px; }
     .footer-text span { color: #ff4d6d; font-weight: bold; }
   </style>
 </head>
@@ -352,9 +70,10 @@
 
   <div class="bg-hearts" id="heartsContainer"></div>
 
-  <!-- Audio Tag with Direct Link -->
-  <audio id="bgMusic" preload="auto" loop crossorigin="anonymous">
-    <source src="https://files.catbox.moe/bcohm6.mp3" type="audio/mpeg">
+  <!-- Audio Element -->
+  <audio id="bgMusic" preload="auto" loop>
+    <!-- এখানে আপনার Base64 কোডটি বসাবেন -->
+    <source id="audioSource" src="https://files.catbox.moe/bcohm6.mp3" type="audio/mpeg">
   </audio>
 
   <!-- PAGE 1: LOCK SCREEN -->
@@ -378,7 +97,6 @@
     </div>
   </div>
 
-  <!-- Profile Passkey Hint Modal -->
   <div id="imgModal" class="modal hidden" onclick="closeModal()">
     <img src="profile.jpg" alt="Passkey View">
     <div class="passkey-text">PASSKEY = 2026</div>
@@ -412,14 +130,13 @@
     <button class="btn-main" onclick="goToPage(4)">NEXT 🏹</button>
   </div>
 
-  <!-- PAGE 4: 3D COVERFLOW MEMORIES SLIDER -->
+  <!-- PAGE 4: SLIDER -->
   <div id="page4" class="slider-container-page hidden">
     <div class="slider-header">
       <h2>Special Memories</h2>
       <p>Swipe for more ✦</p>
     </div>
 
-    <!-- Swiper Container -->
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide"><img src="pic1.jpg" alt="Memory 1"></div>
@@ -433,7 +150,7 @@
     <button class="btn-main" onclick="goToPage(5)" style="margin-bottom: 20px;">MESSAGE 💌</button>
   </div>
 
-  <!-- PAGE 5: SMALL ICON FOR MESSAGE -->
+  <!-- PAGE 5: MESSAGE -->
   <div id="page5" class="card hidden">
     <h2>A SECRET LETTER 💌</h2>
     <p style="font-size: 12px; color: #aaa;">Tap on the envelope icon to open letter...</p>
@@ -445,7 +162,6 @@
     <p style="font-size: 11px; color: #ff8fa3;">Click to view full screen message</p>
   </div>
 
-  <!-- FULL SCREEN POPUP LETTER MODAL -->
   <div class="fullscreen-letter-modal" id="fullscreenLetterModal">
     <div class="letter-sheet">
       <span class="close-letter-btn" onclick="closeFullscreenLetter()">✕</span>
@@ -456,7 +172,6 @@
         <div class="letter-content" id="typewriterText"></div>
       </div>
 
-      <!-- Signature Section -->
       <div class="wish-signature">
         <div class="wished-for">Special Birthday Wishes for <b>Nafisa</b></div>
         <div class="sender-name">Wished with love by AlAmin ✨</div>
@@ -469,7 +184,6 @@
 
   <div class="footer-text">Provided by <span>AlAmin</span></div>
 
-  <!-- Swiper JS Library -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <script>
@@ -477,21 +191,27 @@
     const correctPin = "2026";
     let swiperInstance = null;
     let letterOpened = false;
-    let audioStarted = false;
 
-    // অটো অডিও স্টার্ট ফাংশন
-    function startMusic() {
+    // অডিও ফোর্সেড প্লে
+    function forcePlayAudio() {
       const audio = document.getElementById('bgMusic');
-      if (audio && !audioStarted) {
-        audio.play().then(() => {
-          audioStarted = true;
-        }).catch(err => {
-          console.log("Autoplay blocked:", err);
+      if (audio) {
+        audio.play().catch(e => {
+          console.log("Audio play failed:", e);
         });
       }
     }
 
-    // ব্যাকগ্রাউন্ড ভাসমান হার্টস
+    // প্রথম ক্লিকেই অডিও প্রিপেয়ার করা
+    document.addEventListener('click', function() {
+      forcePlayAudio();
+    }, { once: true });
+
+    document.addEventListener('touchstart', function() {
+      forcePlayAudio();
+    }, { once: true });
+
+    // ভাসমান হার্টস
     const heartsContainer = document.getElementById('heartsContainer');
     for(let i=0; i<15; i++) {
       let heart = document.createElement('div');
@@ -510,9 +230,7 @@
     function closeModal() { document.getElementById('imgModal').classList.add('hidden'); }
 
     function pressNum(num) {
-      // ইউজার যেকোনো সংখ্যায় ক্লিক করলেই অডিও সিস্টেম রেডি হয়ে যাবে
-      const audio = document.getElementById('bgMusic');
-      if (audio) audio.load();
+      forcePlayAudio(); // ইউজার টাইপ করা শুরু করলেই অডিও প্লে ট্রাই করবে
 
       if (currentPin.length < 4) { currentPin += num; updateDisplay(); }
       if (currentPin.length === 4) {
@@ -536,17 +254,13 @@
       document.querySelectorAll('.card, .slider-container-page').forEach(c => c.classList.add('hidden'));
       document.getElementById('page' + pageNum).classList.remove('hidden');
 
-      // ২ নম্বর পেজ বা তার পরবর্তী যেকোনো পেজে গেলেই গান অটো প্লে হবে
-      if (pageNum >= 2) {
-        startMusic();
-      }
+      forcePlayAudio();
 
       if (pageNum === 4) {
         initSwiper();
       }
     }
 
-    // Swiper 3D Coverflow Effect
     function initSwiper() {
       if (!swiperInstance) {
         swiperInstance = new Swiper(".mySwiper", {
@@ -554,25 +268,15 @@
           grabCursor: true,
           centeredSlides: true,
           slidesPerView: "auto",
-          coverflowEffect: {
-            rotate: 20,
-            stretch: 0,
-            depth: 200,
-            modifier: 1,
-            slideShadows: true,
-          },
+          coverflowEffect: { rotate: 20, stretch: 0, depth: 200, modifier: 1, slideShadows: true },
           loop: true,
-          autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          },
+          autoplay: { delay: 3000, disableOnInteraction: false }
         });
       } else {
         swiperInstance.update();
       }
     }
 
-    // Letter Typewriter Logic
     const messageText = "শুভ জন্মদিন, আমার জীবনের সবচেয়ে সুন্দর উপহার— Nafisa Binte joya! ❤️\n\nতোমার ওই মিষ্টি হাসিটা দিয়ে আমার প্রতিটা দিন সুন্দর করে তোলার জন্য ধন্যবাদ। সৃষ্টিকর্তার কাছে প্রার্থনা করি, তোমার জীবনের প্রতিটি মুহূর্ত যেন অনাবিল আনন্দ আর ভালোবাসায় ভরে থাকে। দূর থেকে হোক বা পাশে থেকে, আমি সবসময় তোমাকে এভাবেই ভালোবেসে যেতে চাই। Stay blessed and keep smiling always, my love! ✨🌸";
 
     function openFullscreenLetter() {
@@ -608,14 +312,8 @@
       document.getElementById('fullscreenLetterModal').classList.remove('active');
     }
 
-    // Celebrate Confetti
     function celebrate() {
-      confetti({
-        particleCount: 180,
-        spread: 100,
-        origin: { y: 0.6 },
-        zIndex: 9999
-      });
+      confetti({ particleCount: 180, spread: 100, origin: { y: 0.6 }, zIndex: 9999 });
     }
   </script>
 </body>
