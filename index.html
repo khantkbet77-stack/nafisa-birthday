@@ -149,10 +149,11 @@
     .counter-box p { font-size: 10px; letter-spacing: 2px; color: #aaa; text-transform: uppercase; }
 
     .btn-main {
-      background: linear-gradient(45deg, #ff4d6d, #c9184a);
-      border: none; color: white; padding: 13px 32px; border-radius: 30px;
+      background: linear-gradient(135deg, #ff4d6d 0%, #ff758f 50%, #ffb3c1 100%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: white; padding: 13px 32px; border-radius: 30px;
       font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 15px; 
-      box-shadow: 0 5px 20px rgba(255, 77, 109, 0.5);
+      box-shadow: 0 0 15px rgba(255, 77, 109, 0.8), 0 5px 15px rgba(0, 0, 0, 0.3);
       transition: all 0.3s ease;
       position: relative;
       z-index: 10;
@@ -350,7 +351,9 @@
 
   <div class="bg-hearts" id="heartsContainer"></div>
 
+  <!-- Audio Tag Corrected -->
   <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mp3">
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
@@ -358,11 +361,12 @@
   <div id="page1" class="card">
     <img src="profile.jpg" id="profilePic" class="avatar-btn" alt="Profile">
     <h2>LOCKED</h2>
-    <!-- ঠিক এখানে এই মিউজিক বাটনটি বসিয়ে দিন -->
-    <button onclick="document.getElementById('bgMusic').play()" style="background: #ff4d6d; color: white; border: none; padding: 8px 20px; border-radius: 20px; margin: 10px 0; cursor: pointer; font-weight: bold; box-shadow: 0 0 10px rgba(255,77,109,0.5);">
+    
+    <!-- Music Button Connected to Fixed Function -->
+    <button onclick="playAudioDirectly()" style="background: linear-gradient(135deg, #ff4d6d 0%, #ff758f 50%, #ffb3c1 100%); color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 9px 22px; border-radius: 20px; margin: 10px 0; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px rgba(255,77,109,0.6);">
       🎵 Play Music
     </button>
-    <!-- মিউজিক বাটন শেষ -->
+    
     <p style="font-size: 12px; color: #aaa; margin: 5px 0 15px 0;">Hint — Click picture for passkey</p>
     <div id="pinDisplay" class="pin-display">••••</div>
     <div class="keypad">
@@ -474,24 +478,23 @@
   <!-- Swiper JS Library -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<script>
+  <script>
     let currentPin = "";
     const correctPin = "2026";
     let swiperInstance = null;
     let letterOpened = false;
 
-    // সরাসরি অডিও প্লে করার ফাংশন
+    // অডিও প্লে করার নিখুঁত লজিক
     function playAudioDirectly() {
       const audio = document.getElementById('bgMusic');
       if (audio) {
-        audio.currentTime = 0;
         const playPromise = audio.play();
         if (playPromise !== undefined) {
           playPromise.then(_ => {
             console.log("Audio playing successfully!");
           }).catch(error => {
             console.log("Playback failed:", error);
-            alert("গান প্লে হচ্ছে না! গিটহাবে ফাইলের নাম ঠিক 'music.mp3' (সব ছোট হাতের) আছে কিনা চেক করুন।");
+            alert("গান প্লে হচ্ছে না! আপনার গিটহাবে অডিও ফাইলের নাম হুবহু 'music.mp3' (সব ছোট হাতের) আছে কিনা নিশ্চিত করুন।");
           });
         }
       }
@@ -516,10 +519,10 @@
     function closeModal() { document.getElementById('imgModal').classList.add('hidden'); }
 
     function pressNum(num) {
+      playAudioDirectly(); // কিপ্যাডে প্রেস করার সাথে সাথেই মিউজিক ট্রিগার করার চেষ্টা করবে
       if (currentPin.length < 4) { currentPin += num; updateDisplay(); }
       if (currentPin.length === 4) {
         if (currentPin === correctPin) {
-          playAudioDirectly(); // সঠিক পিন দিলেও গান অন করার চেষ্টা করবে
           setTimeout(() => goToPage(2), 300);
         } else {
           alert("Wrong Passkey! Click picture for hint.");
@@ -569,7 +572,7 @@
     }
 
     // Letter Typewriter Logic
-    const messageText = "শুভ জন্মদিন, আমার জীবনের সবচেয়ে সুন্দর উপহার— Nafisa Binte joya! ❤️\n\nতোমার ওই মিষ্টি হাসিটা দিয়ে আমার প্রতিটা দিন সুন্দর করে তোলার জন্য ধন্যবাদ। সৃষ্টিকর্তার কাছে প্রার্থনা করি, তোমার জীবনের প্রতিটি মুহূর্ত যেন অনাবিল আনন্দ আর ভালোবাসায় ভরে থাকে। দূর থেকে হোক বা পাশে থেকে, আমি সবসময় তোমাকে এভাবেই ভালোবেসে যেতে চাই। Stay blessed and keep smiling always, my love! ✨🌸";
+    const messageText = "শুভ জন্মদিন, আমার জীবনের সবচেয়ে সুন্দর উপহার— Nafisa Binte joya! ❤️\n\nতোমার ওই মিষ্টি হাসিটা দিয়ে আমার প্রতিটা দিন সুন্দর করে তোলার জন্য ধন্যবাদ। সৃষ্টিকর্তার কাছে প্রার্থনা করি, তোমার জীবনের প্রতিটি মুহূর্ত যেন অনাবিল আনন্দ আর ভালোবাসায় ভরে থাকে। দূর থেকে হোক বা পাশে থেকে, আমি সবসময় তোমাকে এভাবেই ভালোবেসে যেতে চাই। Stay blessed and keep smiling always, my love! ✨🌸";
 
     function openFullscreenLetter() {
       const modal = document.getElementById('fullscreenLetterModal');
@@ -613,4 +616,10 @@
         zIndex: 9999
       });
     }
+
+    // স্ক্রিনে প্রথম টাচ করলেই মিউজিক শুরু হওয়ার ইভেন্ট
+    document.addEventListener('touchstart', playAudioDirectly, { once: true });
+    document.addEventListener('click', playAudioDirectly, { once: true });
   </script>
+</body>
+</html>
