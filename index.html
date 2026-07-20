@@ -352,7 +352,7 @@
 
   <div class="bg-hearts" id="heartsContainer"></div>
 
-  <!-- Audio Tag with Catbox Direct Link -->
+  <!-- Audio Tag with Direct Link -->
   <audio id="bgMusic" preload="auto" loop crossorigin="anonymous">
     <source src="https://files.catbox.moe/bcohm6.mp3" type="audio/mpeg">
   </audio>
@@ -361,13 +361,7 @@
   <div id="page1" class="card">
     <img src="profile.jpg" id="profilePic" class="avatar-btn" alt="Profile">
     <h2>LOCKED</h2>
-    
-    <!-- Music Button -->
-    <button id="musicBtn" onclick="playAudioDirectly()" type="button" style="position: relative; z-index: 99999; pointer-events: auto; background: linear-gradient(135deg, #ff4d6d, #ff758f); color: white; border: none; padding: 10px 22px; border-radius: 20px; margin: 10px 0; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px rgba(255,77,109,0.8);">
-      🎵 Play Music
-    </button>
-    
-    <p style="font-size: 12px; color: #aaa; margin: 5px 0 15px 0;">Hint — Click picture for passkey</p>
+    <p style="font-size: 12px; color: #aaa; margin: 10px 0 15px 0;">Hint — Click picture for passkey</p>
     <div id="pinDisplay" class="pin-display">••••</div>
     <div class="keypad">
       <button onclick="pressNum('1')">1</button>
@@ -483,40 +477,19 @@
     const correctPin = "2026";
     let swiperInstance = null;
     let letterOpened = false;
+    let audioStarted = false;
 
-    // অডিও প্লে ও পজ উন্নত ফাংশন
-    function playAudioDirectly() {
+    // অটো অডিও স্টার্ট ফাংশন
+    function startMusic() {
       const audio = document.getElementById('bgMusic');
-      const btn = document.getElementById('musicBtn');
-      
-      if (audio) {
-        if (audio.paused) {
-          let playPromise = audio.play();
-          
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              if(btn) btn.innerText = "⏸️ Pause Music";
-            }).catch(error => {
-              console.log("Audio Error:", error);
-            });
-          }
-        } else {
-          audio.pause();
-          if(btn) btn.innerText = "🎵 Play Music";
-        }
+      if (audio && !audioStarted) {
+        audio.play().then(() => {
+          audioStarted = true;
+        }).catch(err => {
+          console.log("Autoplay blocked:", err);
+        });
       }
     }
-
-    // প্রথম ক্লিকেই ব্রাউজার অডিও আনলক করার কোড
-    document.addEventListener('click', function() {
-      const audio = document.getElementById('bgMusic');
-      if (audio && audio.paused) audio.load();
-    }, { once: true });
-
-    document.addEventListener('touchstart', function() {
-      const audio = document.getElementById('bgMusic');
-      if (audio && audio.paused) audio.load();
-    }, { once: true });
 
     // ব্যাকগ্রাউন্ড ভাসমান হার্টস
     const heartsContainer = document.getElementById('heartsContainer');
@@ -537,11 +510,16 @@
     function closeModal() { document.getElementById('imgModal').classList.add('hidden'); }
 
     function pressNum(num) {
+      // ইউজার যেকোনো সংখ্যায় ক্লিক করলেই অডিও সিস্টেম রেডি হয়ে যাবে
+      const audio = document.getElementById('bgMusic');
+      if (audio) audio.load();
+
       if (currentPin.length < 4) { currentPin += num; updateDisplay(); }
       if (currentPin.length === 4) {
         if (currentPin === correctPin) {
-          playAudioDirectly(); // সঠিক পাসওয়ার্ড দিলে স্বয়ংক্রিয়ভাবে প্লে করার চেষ্টা করবে
-          setTimeout(() => goToPage(2), 300);
+          setTimeout(() => {
+            goToPage(2);
+          }, 300);
         } else {
           alert("Wrong Passkey! Click picture for hint.");
           clearPin();
@@ -557,6 +535,11 @@
     function goToPage(pageNum) {
       document.querySelectorAll('.card, .slider-container-page').forEach(c => c.classList.add('hidden'));
       document.getElementById('page' + pageNum).classList.remove('hidden');
+
+      // ২ নম্বর পেজ বা তার পরবর্তী যেকোনো পেজে গেলেই গান অটো প্লে হবে
+      if (pageNum >= 2) {
+        startMusic();
+      }
 
       if (pageNum === 4) {
         initSwiper();
