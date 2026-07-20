@@ -352,9 +352,10 @@
 
   <div class="bg-hearts" id="heartsContainer"></div>
 
-  <!-- Audio Tag with GitHub Direct Raw Link -->
+  <!-- Audio Tag with Relative Path Fix -->
   <audio id="bgMusic" preload="auto" loop>
-    <source src="https://raw.githubusercontent.com/khantkbet77-stack/nafisa-birthday/main/music.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
+    <source src="./music.mp3" type="audio/mp3">
   </audio>
 
   <!-- PAGE 1: LOCK SCREEN -->
@@ -362,7 +363,7 @@
     <img src="profile.jpg" id="profilePic" class="avatar-btn" alt="Profile">
     <h2>LOCKED</h2>
     
-    <!-- Music Button with High Z-Index -->
+    <!-- Music Button -->
     <button id="musicBtn" onclick="playAudioDirectly()" type="button" style="position: relative; z-index: 99999; pointer-events: auto; background: linear-gradient(135deg, #ff4d6d, #ff758f); color: white; border: none; padding: 10px 22px; border-radius: 20px; margin: 10px 0; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px rgba(255,77,109,0.8);">
       🎵 Play Music
     </button>
@@ -484,24 +485,47 @@
     let swiperInstance = null;
     let letterOpened = false;
 
-    // অডিও প্লে ও পজ ফাংশন
+    // অডিও প্লে ও পজ উন্নত ফাংশন
     function playAudioDirectly() {
       const audio = document.getElementById('bgMusic');
       const btn = document.getElementById('musicBtn');
+      
       if (audio) {
         if (audio.paused) {
-          audio.play().then(() => {
-            if(btn) btn.innerText = "⏸️ Pause Music";
-          }).catch(error => {
-            console.log("Audio Error:", error);
-            alert("গান প্লে হচ্ছে না, ১ মিনিট পর পেজটি রিফ্রেশ দিন।");
-          });
+          audio.load(); // অডিও রিলোড নিশ্চিত করা
+          let playPromise = audio.play();
+          
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              if(btn) btn.innerText = "⏸️ Pause Music";
+            }).catch(error => {
+              console.log("Audio Error:", error);
+              // সেকেন্ড চান্স ট্রাই
+              audio.src = "music.mp3";
+              audio.play().then(() => {
+                if(btn) btn.innerText = "⏸️ Pause Music";
+              }).catch(err => {
+                alert("অডিও লোড হতে সমস্যা হচ্ছে। পেজে একবার টাচ করে আবার বাটন প্রেস করুন।");
+              });
+            });
+          }
         } else {
           audio.pause();
           if(btn) btn.innerText = "🎵 Play Music";
         }
       }
     }
+
+    // প্রথম ক্লিকেই ব্রাউজার অডিও আনলক করার কোড
+    document.addEventListener('click', function() {
+      const audio = document.getElementById('bgMusic');
+      if (audio) audio.load();
+    }, { once: true });
+
+    document.addEventListener('touchstart', function() {
+      const audio = document.getElementById('bgMusic');
+      if (audio) audio.load();
+    }, { once: true });
 
     // ব্যাকগ্রাউন্ড ভাসমান হার্টস
     const heartsContainer = document.getElementById('heartsContainer');
