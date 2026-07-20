@@ -53,6 +53,38 @@
       100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
     }
 
+    /* Corner Music Control Button */
+    .music-toggle-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 77, 109, 0.2);
+      border: 2px solid #ff4d6d;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 999;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+      transition: all 0.3s ease;
+    }
+    .music-toggle-btn:active {
+      transform: scale(0.9);
+    }
+    .music-toggle-btn.playing {
+      animation: spinBtn 3s linear infinite;
+    }
+    @keyframes spinBtn {
+      0% { box-shadow: 0 0 10px #ff4d6d; }
+      50% { box-shadow: 0 0 22px #ff4d6d, inset 0 0 8px #ff4d6d; }
+      100% { box-shadow: 0 0 10px #ff4d6d; }
+    }
+
     /* VIP Card Container */
     .card {
       position: relative;
@@ -352,10 +384,15 @@
 
   <div class="bg-hearts" id="heartsContainer"></div>
 
-  <!-- Local Audio Tag (Ensure music.mp3 is in the same folder) -->
+  <!-- Local Audio Tag -->
   <audio id="bgMusic" preload="auto" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
+
+  <!-- Corner Music Toggle Button -->
+  <div class="music-toggle-btn" id="musicBtn" onclick="toggleMusic()" title="Music On/Off">
+    🎵
+  </div>
 
   <!-- PAGE 1: LOCK SCREEN -->
   <div id="page1" class="card">
@@ -478,13 +515,21 @@
     let swiperInstance = null;
     let letterOpened = false;
 
-    // অডিও প্লে করার ফাংশন
-    function playMusic() {
+    // মিউজিক অন/অফ টগল করার ফাংশন
+    function toggleMusic() {
       const audio = document.getElementById('bgMusic');
-      if (audio && audio.paused) {
-        audio.play().catch(err => {
-          console.log("Audio play blocked or waiting for user interaction:", err);
+      const btn = document.getElementById('musicBtn');
+      if (audio.paused) {
+        audio.play().then(() => {
+          btn.classList.add('playing');
+          btn.innerHTML = "🔊";
+        }).catch(err => {
+          console.log("Play blocked:", err);
         });
+      } else {
+        audio.pause();
+        btn.classList.remove('playing');
+        btn.innerHTML = "🔇";
       }
     }
 
@@ -507,13 +552,9 @@
     function closeModal() { document.getElementById('imgModal').classList.add('hidden'); }
 
     function pressNum(num) {
-      // যেকোনো সংখ্যায় প্রথমবার ক্লিক করলেই গান চালু হওয়ার চেষ্টা করবে
-      playMusic();
-
       if (currentPin.length < 4) { currentPin += num; updateDisplay(); }
       if (currentPin.length === 4) {
         if (currentPin === correctPin) {
-          playMusic();
           setTimeout(() => {
             goToPage(2);
           }, 300);
@@ -532,9 +573,6 @@
     function goToPage(pageNum) {
       document.querySelectorAll('.card, .slider-container-page').forEach(c => c.classList.add('hidden'));
       document.getElementById('page' + pageNum).classList.remove('hidden');
-
-      // পেজ পরিবর্তন করলেই গান নিশ্চিত বাজবে
-      playMusic();
 
       if (pageNum === 4) {
         initSwiper();
@@ -571,7 +609,6 @@
     const messageText = "শুভ জন্মদিন, আমার জীবনের সবচেয়ে সুন্দর উপহার— Nafisa Binte joya! ❤️\n\nতোমার ওই মিষ্টি হাসিটা দিয়ে আমার প্রতিটা দিন সুন্দর করে তোলার জন্য ধন্যবাদ। সৃষ্টিকর্তার কাছে প্রার্থনা করি, তোমার জীবনের প্রতিটি মুহূর্ত যেন অনাবিল আনন্দ আর ভালোবাসায় ভরে থাকে। দূর থেকে হোক বা পাশে থেকে, আমি সবসময় তোমাকে এভাবেই ভালোবেসে যেতে চাই। Stay blessed and keep smiling always, my love! ✨🌸";
 
     function openFullscreenLetter() {
-      playMusic();
       const modal = document.getElementById('fullscreenLetterModal');
       modal.classList.add('active');
 
@@ -606,7 +643,6 @@
 
     // Celebrate Confetti
     function celebrate() {
-      playMusic();
       confetti({
         particleCount: 180,
         spread: 100,
@@ -614,11 +650,6 @@
         zIndex: 9999
       });
     }
-
-    // স্ক্রিনের যেকোনো জায়গায় প্রথম টাচ বা ক্লিকেই মিউজিক নিশ্চিত করার গ্যারান্টি
-    document.body.addEventListener('click', function() {
-      playMusic();
-    }, { once: true });
   </script>
 </body>
 </html>
