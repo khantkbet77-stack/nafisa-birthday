@@ -33,12 +33,13 @@
     }
 
     /* Floating Heart Background */
-    .bg-hearts {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
+.bg-hearts {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; /* এটি নিশ্চিত করে যে হার্টস ক্লিকে বাধা দেবে না */
+  overflow: hidden;
+  z-index: 1;
+}
     }
     .heart-particle {
       position: absolute;
@@ -362,7 +363,8 @@
     <h2>LOCKED</h2>
     
     <!-- Music Button Connected to Fixed Function -->
-   <button onclick="playAudioDirectly()" type="button" style="background: #ff4d6d; color: white; border: none; padding: 10px 20px; border-radius: 20px; margin: 10px 0; cursor: pointer; font-weight: bold; box-shadow: 0 0 10px rgba(255,77,109,0.5); z-index: 999; position: relative;">
+  <!-- Z-Index এবং Pointer-Events নিশ্চিত করা বাটন -->
+<button id="musicBtn" onclick="playAudioDirectly()" type="button" style="position: relative; z-index: 999999; pointer-events: auto; background: linear-gradient(135deg, #ff4d6d, #ff758f); color: white; border: none; padding: 12px 24px; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 14px; margin: 10px 0; box-shadow: 0 0 15px rgba(255, 77, 109, 0.8);">
   🎵 Play Music
 </button>
     
@@ -484,24 +486,24 @@
     let letterOpened = false;
 
     // অডিও প্লে করার নিখুঁত লজিক
-    function playAudioDirectly() {
-      const audio = document.getElementById('bgMusic');
-      if (audio) {
-        audio.muted = false; // নিশ্চিত করার জন্য
-        var promise = audio.play();
-        
-        if (promise !== undefined) {
-          promise.then(_ => {
-            console.log("Playing!");
-          }).catch(error => {
-            console.log("Error:", error);
-            // সরাসরি লিঙ্ক দিয়ে প্লে করার চেষ্টা
-            audio.src = "music.mp3";
-            audio.play();
-          });
-        }
-      }
+function playAudioDirectly() {
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  
+  if (audio) {
+    if (audio.paused) {
+      audio.play().then(() => {
+        if(btn) btn.innerText = "⏸️ Pause Music";
+      }).catch(error => {
+        console.log("Audio play error: ", error);
+        alert("গান প্লে হচ্ছে না, পেজটি রিফ্রেশ দিয়ে আবার ট্রাই করুন।");
+      });
+    } else {
+      audio.pause();
+      if(btn) btn.innerText = "🎵 Play Music";
     }
+  }
+}
 
     // ব্যাকগ্রাউন্ড ভাসমান হার্টস
     const heartsContainer = document.getElementById('heartsContainer');
